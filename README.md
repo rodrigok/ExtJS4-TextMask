@@ -1,6 +1,8 @@
 
 Author: Rodrigo Krummenauer do Nascimento
+
 Site: www.rkn.com.br
+
 Email: rodrigoknascimento@gmail.com
 
 Version: 4.0
@@ -10,10 +12,8 @@ License: GPLv3
 CHANGE LOG
 ----------
 2.3
-  - Problema resolvido que ocorrria no Chrome quando se digitava um mesmo numero 3 vezes
-    na mascara do tipo Money
-  - Adicionada funcionalidade de poder iniciar o componente com um valor usando a propriedade
-    value fazendo mascara do valor
+- Problema resolvido que ocorrria no Chrome quando se digitava um mesmo numero 3 vezes na mascara do tipo Money
+- Adicionada funcionalidade de poder iniciar o componente com um valor usando a propriedade value fazendo mascara do valor
 
 2.4
   - Resolvido BUG do IE, nenhuma mascara funcionava no IE
