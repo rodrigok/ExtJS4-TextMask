@@ -128,20 +128,15 @@ Ext.onReady(function() {
 			fieldLabel: 'Data'
 		}]
 	})
-	/*
-	new Ext.Panel({
+	
+	Ext.create('App.Panel', {
 		title: 'Trocando mascara',
-		renderTo: Ext.getBody(),
-		style: 'margin: 10px',
-		height: 'auto',
-		width: 250,
-		frame: true,
 		items: [{
 			xtype: 'form',
 			items: [{
-				xtype: 'textmask',
+				xtype: 'textfield',
+				plugins: 'textmask',
 				fieldLabel: 'CPF',
-				ref: 'cpf',
 				mask: '999.999.999-99',
 				money: false
 			},{
@@ -150,38 +145,33 @@ Ext.onReady(function() {
 				cpf: true,
 				handler: function(){
 					if(this.cpf){
-						this.findParentByType('form').cpf.setMask('99.999.999/9999-99');
-						this.findParentByType('form').cpf.label.update('CNPJ:');
+						this.up('form').down('textfield').setMask('99.999.999/9999-99');
+						this.up('form').down('textfield').labelEl.update('CNPJ:');
 						this.setText('Mudar para CPF');
 						this.cpf = false;
 					}else{
-						this.findParentByType('form').cpf.setMask('999.999.999-99');
-						this.findParentByType('form').cpf.label.update('CPF:');
+						this.up('form').down('textfield').setMask('999.999.999-99');
+						this.up('form').down('textfield').labelEl.update('CPF:');
 						this.setText('Mudar para CNPJ');
 						this.cpf = true;
 					}
 				}
-			},btMostrarDados]
+			}]
 		}]
 	})
 	
-	new Ext.Panel({
+	Ext.create('App.Panel', {
 		title: 'Exemplo mascara em grid',
-		renderTo: Ext.getBody(),
-		style: 'margin: 10px',
-		height: 'auto',
-		width: 250,
-		frame: true,
 		items: [{
 			xtype: 'grid',
 			autoHeight: true,
 			store: {
-				xtype: 'arraystore',
+				xtype: 'store',
 				fields: ['cpf', 'tel'],
 				data: [
-					['96582482514', '9658254155'],
-					['10000000000', '5196587521'],
-					['21121564132', '2152485672']
+					{cpf:'96582482514', tel:'9658254155'},
+					{cpf:'10000000000', tel:'5196587521'},
+					{cpf:'21121564132', tel:'2152485672'}
 				]
 			},
 			columns: [{
@@ -195,6 +185,4 @@ Ext.onReady(function() {
 			}]
 		}]
 	})
-    */
-    
 });

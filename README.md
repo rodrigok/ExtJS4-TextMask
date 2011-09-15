@@ -7,7 +7,7 @@ MaskText for ExtJS 4
 
 **Email:** rodrigoknascimento@gmail.com
 
-**Version:** 4.0
+**Version:** 4.1
 
 **License:** GPLv3
 
@@ -50,6 +50,10 @@ CHANGE LOG
 ###4.0
 
   - Compatibildade com ExtJS 4.x 
+
+###4.1
+
+  - Mapeado o método setMask do plugin para o Field usuário do plugin
 
 TODO
 ----
