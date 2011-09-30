@@ -3,7 +3,7 @@
  * site: www.rkn.com.br
  * email: rodrigoknascimento@gmail.com
  * 
- * Versão: 4.1
+ * Versão: 4.2
  * Lincença: GPLv3
  **/
 

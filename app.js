@@ -96,7 +96,8 @@ Ext.onReady(function() {
 			plugins: 'textmask',
 			fieldLabel: 'Telefone',
 			mask: '(99) 9999-9999',
-			money: false
+			money: false,
+			allowBlank: false
 		},{
 			xtype: 'textfield',
 			plugins: 'textmask',

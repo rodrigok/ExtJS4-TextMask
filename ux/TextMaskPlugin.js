@@ -3,7 +3,7 @@
  * site: www.rkn.com.br
  * email: rodrigoknascimento@gmail.com
  * 
- * Versão: 4.1
+ * Versão: 4.2
  * Lincença: GPLv3
  **/
 
@@ -74,6 +74,7 @@ Ext.define('Ext.ux.TextMaskPlugin',
 		cp.getKeyCode = this.getKeyCode;
 		cp.simpleUpdateHidden = this.simpleUpdateHidden;
 		cp.getValue = this.getValue;
+		cp.getRawValue = this.getRawValue;
 		cp.getValueWithMask = this.getValueWithMask;
 		cp.getValueWithoutMask = this.getValueWithoutMask;
 		cp.setMask = this.setMask;
@@ -188,7 +189,10 @@ Ext.define('Ext.ux.TextMaskPlugin',
 		return this.inputEl.dom.value;
 	},
 	getValueWithoutMask: function(){
-		return this.hiddenField.dom.value;
+		if(this.hiddenField)
+			return this.hiddenField.dom.value;
+		else
+			return '';
 	},
 	getRawValue: function(){
 		return this.getValue();

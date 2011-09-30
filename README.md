@@ -7,7 +7,7 @@ MaskText for ExtJS 4
 
 **Email:** rodrigoknascimento@gmail.com
 
-**Version:** 4.1
+**Version:** 4.2
 
 **License:** GPLv3
 
@@ -54,6 +54,11 @@ CHANGE LOG
 ###4.1
 
   - Mapeado o método setMask do plugin para o Field usuário do plugin
+
+###4.2
+
+  - Mapeado o método getRawValue do plugin para o Field usuário do plugin, permitindo validação usando o valor sem mascara
+
 
 TODO
 ----
