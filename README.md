@@ -7,7 +7,7 @@ MaskText for ExtJS 4
 
 **Email:** rodrigoknascimento@gmail.com
 
-**Version:** 4.2
+**Version:** 4.3
 
 **License:** GPLv3
 
@@ -58,6 +58,11 @@ CHANGE LOG
 ###4.2
 
   - Mapeado o método getRawValue do plugin para o Field usuário do plugin, permitindo validação usando o valor sem mascara
+
+###4.3
+
+  - Resolvido o erro que acontecia quando o campo usava uma mascara e returnWithMask sendo o primeiro do formuário
+  - Agora o campo é marcado como inválido se possui mascara e está setado returnWithMask: true quando não contém valor
 
 
 TODO

@@ -1,9 +1,12 @@
+/*jslint  */
+/*globals Ext */
+ 
 /**
  * autor: Rodrigo Krummenauer do Nascimento
  * site: www.rkn.com.br
  * email: rodrigoknascimento@gmail.com
  * 
- * Versão: 4.2
+ * Versão: 4.3
  * Lincença: GPLv3
  **/
 
@@ -38,7 +41,7 @@
  * depois que o objeto já estiver criado.
  **/
 
-Ext.require(['Ext.ux.TextMaskCore'])
+Ext.require(['Ext.ux.TextMaskCore']);
 
 Ext.define('Ext.ux.TextMaskPlugin',
 {
@@ -57,18 +60,22 @@ Ext.define('Ext.ux.TextMaskPlugin',
 	{
 		this.cp = cp;
 		
-		if(this.cp.xtype == 'datefield'){
+		if(this.cp.xtype === 'datefield')
+		{
 			this.date = true;
 		}
 		
-		if(this.date){
+		if(this.date)
+		{
 			this.cp.mask = '';
 			Ext.each(this.cp.format.split(''), function(item){
-				this.cp.mask += this.maskRel[item] || item
-			},this)
+				this.cp.mask += this.maskRel[item] || item;
+			},this);
 		}
 		
 		cp.textMask = new Ext.ux.TextMaskCore(cp.mask, cp.money);
+		
+		cp.emptyText = cp.textMask.mask('');
 		
 		cp.updateHidden = this.updateHidden;
 		cp.getKeyCode = this.getKeyCode;
@@ -79,13 +86,17 @@ Ext.define('Ext.ux.TextMaskPlugin',
 		cp.getValueWithoutMask = this.getValueWithoutMask;
 		cp.setMask = this.setMask;
 		
-		if(this.date){
+		if(this.date)
+		{
 			cp.setValue = this.setDateValue;
-		}else{
+		}
+		else
+		{
 			cp.setValue = this.setValue;
 		}
 		
-		if(Ext.isEmpty(cp.useMask)){
+		if(Ext.isEmpty(cp.useMask))
+		{
 			cp.useMask = this.useMask;
 		}
 		
@@ -93,7 +104,8 @@ Ext.define('Ext.ux.TextMaskPlugin',
 	},
 	afterRender: function()
 	{
-		if(this.money){
+		if(this.money)
+		{
 			this.inputEl.setStyle('text-align', 'right');
 		}
 		
@@ -110,9 +122,14 @@ Ext.define('Ext.ux.TextMaskPlugin',
 
 		this.inputEl.on({
 			keypress:this.updateHidden,
-			keydown:function(e){
-				if(this.readOnly){return false};
-				if(e.getKey() == e.BACKSPACE){
+			keydown:function(e)
+			{
+				if(this.readOnly)
+				{
+					return false;
+				}
+				if(e.getKey() === e.BACKSPACE)
+				{
 					if(this.money){
 						this.hiddenField.dom.value = this.hiddenField.dom.value.substr(0, this.hiddenField.dom.value.length-1);
 						this.hiddenField.dom.value = this.hiddenField.dom.value.replace(/[.]/g, '');
@@ -133,35 +150,47 @@ Ext.define('Ext.ux.TextMaskPlugin',
 	},
 	getKeyCode : function(onKeyDownEvent, type)
 	{
-		if(this.readOnly){return false};
+		if(this.readOnly)
+		{
+			return false;
+		}
 		var keycode = {};
 		keycode.unicode = onKeyDownEvent.getKey();
 		keycode.isShiftPressed = onKeyDownEvent.shiftKey;
 		
-		keycode.isDelete = ((onKeyDownEvent.getKey() == Ext.EventObject.DELETE && type=='keydown') || ( type=='keypress' && onKeyDownEvent.charCode===0 && onKeyDownEvent.keyCode == Ext.EventObject.DELETE))? true: false;
-		keycode.isTab = (onKeyDownEvent.getKey() == Ext.EventObject.TAB)? true: false;
-		keycode.isBackspace = (onKeyDownEvent.getKey() == Ext.EventObject.BACKSPACE)? true: false;
-		keycode.isLeftOrRightArrow = (onKeyDownEvent.getKey() == Ext.EventObject.LEFT || onKeyDownEvent.getKey() == Ext.EventObject.RIGHT)? true: false;
+		keycode.isDelete = ((onKeyDownEvent.getKey() === Ext.EventObject.DELETE && type === 'keydown') || ( type === 'keypress' && onKeyDownEvent.charCode === 0 && onKeyDownEvent.keyCode === Ext.EventObject.DELETE)) ? true: false;
+		keycode.isTab = (onKeyDownEvent.getKey() === Ext.EventObject.TAB)? true: false;
+		keycode.isBackspace = (onKeyDownEvent.getKey() === Ext.EventObject.BACKSPACE)? true: false;
+		keycode.isLeftOrRightArrow = (onKeyDownEvent.getKey() === Ext.EventObject.LEFT || onKeyDownEvent.getKey() === Ext.EventObject.RIGHT)? true: false;
 		keycode.pressedKey = String.fromCharCode(keycode.unicode);
 		return(keycode);
 	},
 	updateHidden: function(e)
 	{
-		if(this.readOnly || !this.useMask){return false};
+		if(this.readOnly || !this.useMask)
+		{
+			return false;
+		}
 		var key = this.getKeyCode(e, 'keydown');
 		var kk = this.keyDownEventKey || e.getKey();
 
-		if(!(kk >= e.F1 && kk <= e.F12) && !e.isNavKeyPress()){
-			if(this.inputEl.dom.selectionStart == 0 && this.inputEl.dom.selectionEnd == this.inputEl.dom.value.length){
+		if(!(kk >= e.F1 && kk <= e.F12) && !e.isNavKeyPress())
+		{
+			if(this.inputEl.dom.selectionStart === 0 && this.inputEl.dom.selectionEnd === this.inputEl.dom.value.length)
+			{
 				this.hiddenField.dom.value = this.money ? 0 : '';
 			}
-			if(!key.isBackspace){
-				if(this.money){
+			if(!key.isBackspace)
+			{
+				if(this.money)
+				{
 					this.hiddenField.dom.value = String(this.hiddenField.dom.value) + String(key.pressedKey);
 					this.hiddenField.dom.value = this.hiddenField.dom.value.replace(/[.]/g, '');
 					this.hiddenField.dom.value = this.textMask.parsePrecision(this.hiddenField.dom.value, this.textMask.moneyPrecision);
 					this.hiddenField.dom.value = this.textMask.unmask(this.hiddenField.dom.value);
-				}else{
+				}
+				else
+				{
 					this.hiddenField.dom.value = this.textMask.unmask(this.hiddenField.dom.value + key.pressedKey);
 				}
 			}
@@ -175,32 +204,52 @@ Ext.define('Ext.ux.TextMaskPlugin',
 	},
 	simpleUpdateHidden: function(e)
 	{
-		if(this.readOnly || this.useMask){return false};
+		if(this.readOnly || this.useMask){
+			return false;
+		}
 		this.hiddenField.dom.value = this.inputEl.dom.value;
 	},
-	getValue: function(){
-		if(this.returnWithMask){
+	getValue: function()
+	{
+		if(this.returnWithMask)
+		{
 			return this.getValueWithMask();
 		}else{
 			return this.getValueWithoutMask();
 		}
 	},
-	getValueWithMask: function(){
-		return this.inputEl.dom.value;
-	},
-	getValueWithoutMask: function(){
+	getValueWithMask: function()
+	{
 		if(this.hiddenField)
-			return this.hiddenField.dom.value;
+		{
+			return this.inputEl.dom.value;
+		}
 		else
+		{
 			return '';
+		}
 	},
-	getRawValue: function(){
+	getValueWithoutMask: function()
+	{
+		if(this.hiddenField)
+		{
+			return this.hiddenField.dom.value;
+		}
+		else
+		{
+			return '';
+		}
+	},
+	getRawValue: function()
+	{
 		return this.getValue();
 	},
-	setValue: function(v){
+	setValue: function(v)
+	{
 		if(this.useMask)
 		{
-			if(this.inputEl){
+			if(this.inputEl)
+			{
 				this.hiddenField.dom.value = this.textMask.unmask(v);
 				this.inputEl.dom.value = this.textMask.mask(v);
 			}
@@ -208,26 +257,31 @@ Ext.define('Ext.ux.TextMaskPlugin',
 		}
 		else
 		{
-			if(this.inputEl){
+			if(this.inputEl)
+			{
 				this.hiddenField.dom.value = v;
 				this.inputEl.dom.value = v;
 			}
 			this.value = v;
 		}
 	},
-	setDateValue: function(v){
-		if(v === 'now'){
-			v = new Date;
+	setDateValue: function(v)
+	{
+		if(v === 'now')
+		{
+			v = new Date();
 		}
 		
-		if(this.inputEl){
+		if(this.inputEl)
+		{
 			v = this.formatDate(this.parseDate(v));
 			this.hiddenField.dom.value = v;
 			this.inputEl.dom.value = this.textMask.mask(v);
 		}
 		this.value = v;
 	},
-	setMask: function(mask){
+	setMask: function(mask)
+	{
 		this.textMask.setMask(mask);
 		this.setValue(this.hiddenField.dom.value);
 	}
