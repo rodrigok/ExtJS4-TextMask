@@ -89,6 +89,7 @@ Ext.define('Ext.ux.TextMaskPlugin',
 		if(this.date)
 		{
 			cp.setValue = this.setDateValue;
+			cp.getSubmitData = this.getSubmitData;
 		}
 		else
 		{
@@ -191,7 +192,8 @@ Ext.define('Ext.ux.TextMaskPlugin',
 				}
 				else
 				{
-					this.hiddenField.dom.value = this.textMask.unmask(this.hiddenField.dom.value + key.pressedKey);
+					var hiddenValue = this.hiddenField.dom.value === 'undefined' ? key.pressedKey : this.hiddenField.dom.value + key.pressedKey;
+					this.hiddenField.dom.value = this.textMask.unmask(hiddenValue);
 				}
 			}
 			
@@ -284,7 +286,23 @@ Ext.define('Ext.ux.TextMaskPlugin',
 	{
 		this.textMask.setMask(mask);
 		this.setValue(this.hiddenField.dom.value);
-	}
+	},
+	getSubmitData: function() {
+        var me = this,
+            data = null,
+            val;
+
+        if (!me.disabled && me.submitValue && !me.isFileUpload()) {
+            val = me.getValue();
+
+            if (val !== null) {
+                data = {};
+                data[me.getName()] = val;
+            }
+        }
+
+        return data;
+    }
 });
 
 
