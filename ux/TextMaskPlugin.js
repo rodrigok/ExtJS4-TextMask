@@ -192,7 +192,8 @@ Ext.define('Ext.ux.TextMaskPlugin',
 				}
 				else
 				{
-					this.hiddenField.dom.value = this.textMask.unmask(this.hiddenField.dom.value + key.pressedKey);
+					var hiddenValue = this.hiddenField.dom.value === 'undefined' ? key.pressedKey : this.hiddenField.dom.value + key.pressedKey;
+					this.hiddenField.dom.value = this.textMask.unmask(hiddenValue);
 				}
 			}
 			
